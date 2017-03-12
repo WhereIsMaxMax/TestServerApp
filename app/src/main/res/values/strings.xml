@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Maxim_AdressBook</string>
+    <string name="app_name">Address Book</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -21,4 +21,5 @@
     <string name="sure">Are you sure?</string>
     <string name="dummy">dummy</string>
     <string name="photo">photo</string>
+    <string name="no_email">There is no email app on your device</string>
 </resources>

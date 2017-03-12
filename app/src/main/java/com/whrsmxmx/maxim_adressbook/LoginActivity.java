@@ -112,8 +112,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(response.body().getSuccess()){
                     saveData(mName, mPassword);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }else {
                     Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();

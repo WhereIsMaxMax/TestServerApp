@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.whrsmxmx.maxim_adressbook.model.Employee;
@@ -73,8 +75,11 @@ public class EmployeeActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_SEND)
                         .setType("message/rfc822")
                         .putExtra(Intent.EXTRA_EMAIL, new String[]{employee.getEmail()});
-
-                startActivity(intent);
+                try {
+                    startActivity(intent);
+                }catch (android.content.ActivityNotFoundException ex){
+                    Toast.makeText(EmployeeActivity.this, R.string.no_email, Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -84,7 +89,13 @@ public class EmployeeActivity extends AppCompatActivity {
 
         Log.d("Photo path:", path);
 
-        Picasso.with(EmployeeActivity.this).load(path).into(photoView);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels/2-10;
+
+        Picasso.with(EmployeeActivity.this).load(path).
+                resize(width, width)
+                .centerCrop().into(photoView);
     }
 
     @Override
@@ -103,9 +114,8 @@ public class EmployeeActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mLoginManager.logout();
-                            Intent intent = new Intent(EmployeeActivity.this, LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+                            setResult(MainActivity.CODE_LOGOUT);
+                            finish();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null)

@@ -3,10 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="com.whrsmxmx.maxim_adressbook.EmployeeActivity"
-    android:baselineAligned="false"
     android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:id="@+id/photo"
+        android:src="@mipmap/ic_launcher_round"
+        android:contentDescription="@string/photo"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -37,23 +45,6 @@
             android:layout_height="wrap_content"
             style="@style/TextItem"
             android:id="@+id/email"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/photo"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/photo"/>
 
     </LinearLayout>
 

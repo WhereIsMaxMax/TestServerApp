@@ -26,6 +26,8 @@ import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int START_EMPLOYEE_CODE = 902;
+    public static int CODE_LOGOUT = 903;
     private ExpandableListView mList;
     private LoginManager mLoginManager;
     private retrofit2.Response<Example> mResponse;
@@ -96,10 +98,20 @@ public class MainActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putSerializable(App.CODE_EMPLOYEE, e);
                 i.putExtras(b);
-                startActivity(i);
+                startActivityForResult(i, START_EMPLOYEE_CODE);
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == START_EMPLOYEE_CODE){
+            if(resultCode == CODE_LOGOUT)
+                startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                finish();
+        }
     }
 
     @Override
@@ -118,9 +130,8 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mLoginManager.logout();
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null)

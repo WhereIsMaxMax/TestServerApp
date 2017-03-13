@@ -127,5 +127,14 @@ public class EmployeeActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode==PERMISSION_CODE){
+            if(permissions.toString().contains(Manifest.permission.CALL_PHONE)){
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneText.getText().toString()));
+                startActivity(intent);
+            }else{
+                Toast.makeText(EmployeeActivity.this, "Permission canceled", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

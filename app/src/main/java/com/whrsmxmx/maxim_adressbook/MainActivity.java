@@ -108,9 +108,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == START_EMPLOYEE_CODE){
-            if(resultCode == CODE_LOGOUT)
+            if(resultCode == CODE_LOGOUT) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
+            }
+
         }
     }
 
